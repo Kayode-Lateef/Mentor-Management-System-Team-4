@@ -10,7 +10,8 @@ export const createNotification = catchAsync(async (req, res) => {
 export const getNotifications = catchAsync(async (req, res) => {
   const { limit = 10, page = 1, userId } = req.query;
   if (!userId) {
-    return res.status(httpStatus.BAD_REQUEST).json({ success: false, message: 'userId query parameter is required' });
+    const newLocal = 'userId query parameter is required';
+    return res.status(httpStatus.BAD_REQUEST).json({ success: false, message: newLocal });
   }
   const notifications = await notificationService.getNotificationsByUserId(userId, limit, page);
   res.status(httpStatus.OK).json({ success: true, data: notifications });

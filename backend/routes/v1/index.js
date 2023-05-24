@@ -3,6 +3,8 @@ import authRoute from './auth.route';
 import userRoute from './user.route';
 import notificationRoute from './notification.route';
 import settingRoutes from './setting.route';
+import privacyRoutes from './privacy.route';
+
 import config from '../../config/config';
 
 const router = express.Router();
@@ -23,6 +25,10 @@ const defaultRoutes = [
   {
     path: '/setting',
     route: settingRoutes,
+  },
+  {
+    path: '/privacy',
+    route: privacyRoutes,
   },
 ];
 
