@@ -4,6 +4,7 @@ import userRoute from './user.route';
 import notificationRoute from './notification.route';
 import settingRoutes from './setting.route';
 import privacyRoutes from './privacy.route';
+import profileRoutes from './profile.route';
 
 import config from '../../config/config';
 
@@ -29,6 +30,10 @@ const defaultRoutes = [
   {
     path: '/privacy',
     route: privacyRoutes,
+  },
+  {
+    path: '/profile',
+    route: profileRoutes,
   },
 ];
 

@@ -7,14 +7,7 @@ export const getPrivacySettings = async () => {
   return privacySettings;
 };
 
-export const updatePrivacySettings = async (
-  userId,
-  showLinkedin,
-  showTwitter,
-  showInstagram,
-  showGithub,
-  showContactInfo
-) => {
+export const updatePrivacySettings = async (showLinkedin, showTwitter, showInstagram, showGithub, showContactInfo) => {
   const updatedSettings = await Setting.update(
     {
       show_linkedin: showLinkedin,
@@ -23,7 +16,7 @@ export const updatePrivacySettings = async (
       show_github: showGithub,
       show_contact_info: showContactInfo,
     },
-    { where: { setting_id: 1, user_id: userId } }
+    { where: { setting_id: 1 } }
   );
   return updatedSettings;
 };
