@@ -3,8 +3,7 @@ import UserArchiveService from '../services/user_archive.service';
 const UserArchiveController = {
   createUserArchive: async (req, res) => {
     try {
-      // eslint-disable-next-line camelcase
-      const { name, date, time, logo, user_id } = req.body;
+      const { name, date, time, logo, userId } = req.body;
 
       // Call the service method to create a user archive
       const userArchive = await UserArchiveService.createUserArchive({
@@ -12,7 +11,7 @@ const UserArchiveController = {
         date,
         time,
         logo,
-        user_id,
+        userId,
       });
 
       res.status(201).json(userArchive);
