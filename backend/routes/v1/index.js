@@ -5,6 +5,7 @@ import notificationRoute from './notification.route';
 import settingRoutes from './setting.route';
 import privacyRoutes from './privacy.route';
 import profileRoutes from './profile.route';
+import userArchiveRoutes from './user_archive.route';
 
 import config from '../../config/config';
 
@@ -34,6 +35,10 @@ const defaultRoutes = [
   {
     path: '/profile',
     route: profileRoutes,
+  },
+  {
+    path: '/user_archive',
+    route: userArchiveRoutes,
   },
 ];
 
