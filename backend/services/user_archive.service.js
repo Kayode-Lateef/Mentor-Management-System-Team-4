@@ -2,14 +2,13 @@ import models from '../database/models';
 
 const { UserArchive } = models;
 
-// eslint-disable-next-line camelcase
-export const createUserArchive = async (name, date, time, logo, user_id) => {
+export const createUserArchive = async (name, date, time, logo, userId) => {
   const userArchive = await UserArchive.create({
     name,
     date,
     time,
     logo,
-    user_id,
+    userId,
   });
   return userArchive;
 };
