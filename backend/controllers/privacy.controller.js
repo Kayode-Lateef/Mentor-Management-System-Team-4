@@ -9,13 +9,14 @@ export const getPrivacySettings = catchAsync(async (req, res) => {
 
 export const updatePrivacySettings = catchAsync(async (req, res) => {
   const { showLinkedin, showTwitter, showInstagram, showGithub, showContactInfo } = req.body;
-  const updatedSettings = await privacyService.updatePrivacySettings(
-    req.user.id,
+
+  const updatedSettings = await privacyService.updatePrivacySettings({
     showLinkedin,
     showTwitter,
     showInstagram,
     showGithub,
-    showContactInfo
-  );
+    showContactInfo,
+  });
+
   res.status(httpStatus.OK).json(updatedSettings);
 });

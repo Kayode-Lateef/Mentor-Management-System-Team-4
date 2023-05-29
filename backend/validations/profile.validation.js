@@ -1,18 +1,26 @@
 import Joi from 'joi';
 
-const updateProfileValidation = Joi.object({
-  firstName: Joi.string().allow('').optional(),
-  lastName: Joi.string().allow('').optional(),
-  email: Joi.string().email().allow('').optional(),
-  bio: Joi.string().allow('').optional(),
-  website: Joi.string().allow('').optional(),
-  country: Joi.string().allow('').optional(),
-  city: Joi.string().allow('').optional(),
-  image_url: Joi.string().allow('').optional(),
-  gitHub: Joi.string().allow('').optional(),
-  instagram: Joi.string().allow('').optional(),
-  linkedIn: Joi.string().allow('').optional(),
-  twitter: Joi.string().allow('').optional(),
-});
+exports.validateUserProfileUpdate = (req, res, next) => {
+  const schema = Joi.object({
+    firstName: Joi.string().allow(null, ''),
+    lastName: Joi.string().allow(null, ''),
+    email: Joi.string().email().allow(null, ''),
+    bio: Joi.string().allow(null, ''),
+    website: Joi.string().allow(null, ''),
+    country: Joi.string().allow(null, ''),
+    city: Joi.string().allow(null, ''),
+    image_url: Joi.string().allow(null, ''),
+    user_role: Joi.string().allow(null, ''),
+    gitHub: Joi.string().allow(null, ''),
+    instagram: Joi.string().allow(null, ''),
+    linkedIn: Joi.string().allow(null, ''),
+    twitter: Joi.string().allow(null, ''),
+  });
 
-export default { updateProfileValidation };
+  const { error } = schema.validate(req.body);
+  if (error) {
+    return res.status(400).json({ error: error.details[0].message });
+  }
+
+  next();
+};

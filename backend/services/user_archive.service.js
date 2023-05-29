@@ -2,19 +2,19 @@ import models from '../database/models';
 
 const { UserArchive } = models;
 
-const UserArchiveService = {
-  createUserArchive: async (userArchiveData) => {
-    try {
-      // Create a user archive in the database
-      const userArchive = await UserArchive.create(userArchiveData);
-
-      return userArchive;
-    } catch (error) {
-      throw new Error('Failed to create user archive');
-    }
-  },
-
-  // Add other service methods as needed
+// eslint-disable-next-line camelcase
+export const createUserArchive = async (name, date, time, logo, user_id) => {
+  const userArchive = await UserArchive.create({
+    name,
+    date,
+    time,
+    logo,
+    user_id,
+  });
+  return userArchive;
 };
 
-export default UserArchiveService;
+export const getUserArchives = async () => {
+  const userArchives = await UserArchive.findAll();
+  return userArchives;
+};

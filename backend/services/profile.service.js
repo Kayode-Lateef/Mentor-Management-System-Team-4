@@ -1,29 +1,18 @@
 import models from '../database/models';
 
-const { Profile } = models;
+const { User } = models;
 
-const ProfileService = {
-  getProfile: async (userId) => {
-    try {
-      // Retrieve the profile for the given user ID from the database
-      const profile = await Profile.findOne({ where: { user_id: userId } });
-
-      return profile;
-    } catch (error) {
-      throw new Error('Failed to fetch profile');
-    }
-  },
-
-  updateProfile: async (userId, profileData) => {
-    try {
-      // Update the profile for the given user ID in the database
-      await Profile.update(profileData, { where: { user_id: userId } });
-    } catch (error) {
-      throw new Error('Failed to update profile');
-    }
-  },
-
-  // Add other service methods as needed
+exports.getUserProfile = async (userId) => {
+  const userProfile = await User.findOne({ where: { user_id: userId } });
+  return userProfile;
 };
 
-export default ProfileService;
+exports.updateUserProfile = async (userId, updatedData) => {
+  const userProfile = await User.findOne({ where: { user_id: userId } });
+  if (!userProfile) {
+    throw new Error('User not found');
+  }
+
+  const updatedProfile = await userProfile.update(updatedData);
+  return updatedProfile;
+};

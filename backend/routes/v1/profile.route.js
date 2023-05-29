@@ -1,10 +1,11 @@
 import express from 'express';
-import ProfileController from '../../controllers/profile.controller';
+import validate from '../../middlewares/validate';
+import * as profileController from '../../controllers/profile.controller';
+import * as validateUserProfileUpdate from '../../validations/privacy.validation';
 
 const router = express.Router();
 
-// Define routes for profile-related endpoints
-router.get('/:userId', ProfileController.getProfile);
-router.put('/:userId', ProfileController.updateProfile);
+router.get('/:userId', profileController.getUserProfile);
+router.put('/:userId', validate(validateUserProfileUpdate), profileController.updateUserProfile);
 
 export default router;
