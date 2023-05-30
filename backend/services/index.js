@@ -6,7 +6,7 @@ import * as notificationService from './notification.service';
 import * as settingService from './setting.service';
 import * as privacyService from './privacy.service';
 import * as profileService from './profile.service';
-import * as userArchiveService from './user_archive.service';
+import * as userArchiveService from './program.service';
 import * as faqService from './faq.service';
 
 export {

@@ -4,7 +4,7 @@ import * as notificationController from './notification.controller';
 import * as settingController from './setting.controller';
 import * as privacyController from './privacy.controller';
 import * as profileController from './profile.controller';
-import * as userArchiveController from './user_archive.controller';
+import * as archiveController from './program.controller';
 import * as faqController from './faq.controller';
 
 export {
@@ -14,6 +14,6 @@ export {
   settingController,
   privacyController,
   profileController,
-  userArchiveController,
+  archiveController,
   faqController,
 };
