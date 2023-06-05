@@ -1,20 +1,80 @@
-import * as programService from '../services/program.service';
+/* eslint-disable camelcase */
+import httpStatus from 'http-status';
+import ApiError from '../utils/ApiError';
+import catchAsync from '../utils/catchAsync';
+import { programService } from '../services';
 
-export const getAllUsers = async (req, res) => {
-  try {
-    const users = await programService.getAllUsers();
-    return res.status(200).json(users);
-  } catch (error) {
-    return res.status(500).json({ error: 'Internal server error' });
-  }
-};
+const create = catchAsync(async (req, res) => {
+  const { name, description, avatar_url, users } = req.body;
+  const program = await programService.create({
+    created_by: req.user.id,
+    name,
+    description,
+    avatar_url,
+    users,
+  });
 
-export const createUser = async (req, res) => {
-  const { name, email, password } = req.body;
-  try {
-    const createdUser = await programService.createUser(name, email, password);
-    return res.status(201).json(createdUser);
-  } catch (error) {
-    return res.status(500).json({ error: 'Internal server error' });
+  res.status(httpStatus.CREATED).json({ success: true, data: program });
+});
+
+const findById = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const program = await programService.findById(id);
+  if (!program) {
+    throw new ApiError(httpStatus.NOT_FOUND, `Program request not found`);
   }
-};
+  res.status(httpStatus.OK).json({ success: true, data: program });
+});
+
+const findAll = catchAsync(async (req, res) => {
+  const { page = 1, limit = 50 } = req.body;
+  const programs = await programService.findAll(page, limit);
+  if (!programs) {
+    throw new ApiError(httpStatus.NOT_FOUND, `Program request not found`);
+  }
+  res.status(httpStatus.OK).json({ success: true, data: programs });
+});
+
+const findAllByUserId = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  const { limit = 50, page = 1 } = req.body;
+  const programs = await programService.findAllByUserId(id, page, limit);
+  if (!programs) {
+    throw new ApiError(httpStatus.NOT_FOUND, `Program request not found`);
+  }
+  res.status(httpStatus.OK).json({ success: true, data: programs });
+});
+
+const update = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  let program = await programService.findById(id);
+  if (!program) {
+    throw new ApiError(httpStatus.NOT_FOUND, `Program request not found`);
+  }
+  program = await programService.update(req.body, program);
+
+  res.status(httpStatus.OK).json({ success: true, data: program });
+});
+
+const destroy = catchAsync(async (req, res) => {
+  const { id } = req.params;
+  let program = await programService.findById(id);
+  if (!program) {
+    throw new ApiError(httpStatus.NOT_FOUND, `Program request not found`);
+  }
+  program = await program.destroy();
+
+  res.status(httpStatus.OK).json({ success: true, data: program });
+});
+
+const findAllAssignedUsersByRole = catchAsync(async (req, res) => {
+  const { program_id, user_role } = req.params;
+  const { limit = 50, page = 1 } = req.body;
+  const programs = await programService.findAllAssignedUsersByRole(user_role, program_id, page, limit);
+  if (!programs) {
+    throw new ApiError(httpStatus.NOT_FOUND, `Program request not found`);
+  }
+  res.status(httpStatus.OK).json({ success: true, data: programs });
+});
+
+export { create, findById, update, destroy, findAll, findAllByUserId, findAllAssignedUsersByRole };

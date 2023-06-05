@@ -2,11 +2,9 @@ import express from 'express';
 import authRoute from './auth.route';
 import userRoute from './user.route';
 import notificationRoute from './notification.route';
+import approvalRoute from './approval-request.route';
 import settingRoutes from './setting.route';
-import privacyRoutes from './privacy.route';
-import profileRoutes from './profile.route';
 import programRoutes from './program.route';
-import faqRoutes from './faq.route';
 
 import config from '../../config/config';
 
@@ -30,20 +28,12 @@ const defaultRoutes = [
     route: settingRoutes,
   },
   {
-    path: '/privacy',
-    route: privacyRoutes,
+    path: '/approvals',
+    route: approvalRoute,
   },
   {
-    path: '/profile',
-    route: profileRoutes,
-  },
-  {
-    path: '/program',
+    path: '/programs',
     route: programRoutes,
-  },
-  {
-    path: '/faqs',
-    route: faqRoutes,
   },
 ];
 
