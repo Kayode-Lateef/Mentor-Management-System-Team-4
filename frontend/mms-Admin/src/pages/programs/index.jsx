@@ -1,16 +1,28 @@
-import ProgramList from "./Sample";
+import CreateProgram from "./CreateProgram";
+import ProgramItemView from "./ProgramItemView";
 import ViewProgram from "./ViewProgram";
 
 export default {
     path: "programs",
-    children:[
+    children: [
         {
             index: true,
-            element: <ProgramList />
+            element: <ViewProgram />
         },
         {
             path: ":id/view",
-            element: <ViewProgram />
+            element: <ViewProgram />,
+            children: [
+                {
+                    index: true,
+                    element: <ProgramItemView />
+                }
+            ]
+        },
+
+        {
+            path: "create",
+            element: <CreateProgram />
         }
     ]
 }

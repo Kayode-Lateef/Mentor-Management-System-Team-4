@@ -5,7 +5,7 @@ import * as settingController from '../../controllers/setting.controller';
 
 const router = express.Router();
 
-router.get('/', settingController.getAllSettings);
+router.get('/:id', settingController.getSettingByUserId);
 router.put('/:id', validate(updateSettingSchema), settingController.updateSettingById);
 
 export default router;

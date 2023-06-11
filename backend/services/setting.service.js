@@ -2,16 +2,12 @@ import models from '../database/models';
 
 const { Setting } = models;
 
-const getAllSettings = async () => {
-  return Setting.findAll();
+const getSettingByUserId = async (id) => {
+  return Setting.findOne({ where: { user_id: id } });
 };
 
-const getSettingById = async (id) => {
-  return Setting.findByPk(id);
+const updateSettingByUserId = async (id, updates) => {
+  return Setting.update(updates, { where: { user_id: id } });
 };
 
-const updateSetting = async (setting, updates) => {
-  return setting.update(updates);
-};
-
-export { getAllSettings, getSettingById, updateSetting };
+export { getSettingByUserId, updateSettingByUserId };
